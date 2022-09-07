@@ -1,0 +1,45 @@
+.form label{
+    text-transform: uppercase;
+    color: #464649;
+    font-weight: bold;
+    font-size: 2rem;
+    margin-top: 1rem;
+    display: block;
+  }
+
+  .form input, .form textarea{
+    border: 2px solid gray;
+    padding: 1rem;
+    width: 100%;
+    resize: none;
+    overflow: auto;
+    font-size: 2rem;
+  }
+
+  .form input[type="radio"]{
+    height: 2rem;
+  }
+
+  .form input + p, .form fieldset + p, .form textarea + p{
+    color: #ff3612;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .form fieldset span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .form fieldset label {
+    display: inline;
+    font-size: 1.6rem;
+  }
+
+  .form__button{
+    font-size: 2rem;
+  }
+  

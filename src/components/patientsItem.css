@@ -1,0 +1,11 @@
+.patient__label{
+    text-transform: uppercase;
+    color: #464649;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.patient__input{
+    font-size: 1.5rem;
+    margin-left: 10px;
+}
