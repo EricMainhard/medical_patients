@@ -9,8 +9,8 @@ function App() {
   const [patient, setPatient] = useState({});
 
   useEffect(()=>{
-    let patientsInStorage = localStorage.getItem('patients') || [];
-    setPatients(JSON.parse(patientsInStorage));
+    let patientsInStorage = JSON.parse(localStorage.getItem('patients') ?? []);
+    setPatients(patientsInStorage);
   },[])
 
   useEffect(()=>{
