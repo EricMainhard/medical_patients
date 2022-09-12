@@ -8,7 +8,6 @@ export const PatientsList = ({patients, setPatients, setPatient}) => {
         <h2 className="text-3xl text-center font-bold">
             Patients List
         </h2>
-        <p className="text-indigo-600 mt-5 text-center font-bold text-2xl ">Rearrenge the list by priority</p>
         <div className="patiens-list">
             {patients.map((patient)=>{
               return(
