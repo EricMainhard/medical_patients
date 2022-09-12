@@ -1,8 +1,8 @@
 import './form.css';
-import { useState } from 'react';
-import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useEffect, useState } from 'react';
+import { Error } from './Error';
 
-export const Form = ({patients, setPatients}) => {
+export const Form = ({patients, setPatients, patient, setPatient}) => {
 
     const [formData, setFormData] = useState({
         date: '',
@@ -28,11 +28,51 @@ export const Form = ({patients, setPatients}) => {
         e.preventDefault();
         if(Object.values(formData).includes('')){
             setError(true);
-        } else {   
-            console.log(formData);
-            setError(false);  
+        } else {
+            let newPatient = {
+                ...formData
+            }
+            if(!patient.id){
+                newPatient.id = Math.random().toString(36).substr(2);
+                setPatients([...patients, newPatient]);
+            } else {
+                newPatient.id = patient.id;
+
+                let updatedPatients = patients.map((pat)=>{
+                    return pat.id === patient.id ? newPatient : pat
+                })
+
+                setPatients(updatedPatients);
+            }
+
+            setFormData({
+                date: '',
+                time: '',
+                fName: '',
+                lName: '',
+                email: '',
+                age: '',
+                gender: '',
+                desc: ''
+            });
+            setError(false); 
         }
     }
+
+    useEffect(()=>{
+        if(Object.keys(patient).length > 0){
+            setFormData({
+                date: patient.date,
+                time: patient.time,
+                fName: patient.fName,
+                lName: patient.lName,
+                email: patient.email,
+                age: patient.age,
+                gender: patient.gender,
+                desc: patient.desc
+            });
+        }
+    },[patient])
     
   return (
     <div className="md:w-1/2 lg:w-2/5">
@@ -42,11 +82,7 @@ export const Form = ({patients, setPatients}) => {
         <form className="form shadow-md p-5 rounded-lg " onSubmit={handleSubmit}>
 
             {error && (
-                <div className="bg-red-800 text-white text-center p-3 uppercase rounded-md">
-                    <p className='text-2xl '>
-                        Todos los campos son obligatorios
-                    </p>
-                </div>
+                <Error errorMsg={"Todos los campos son obligatorios"}/>
             )}
 
             <label htmlFor="date">Entering date:</label>
@@ -96,7 +132,9 @@ export const Form = ({patients, setPatients}) => {
             <textarea id="desc" name="desc" cols={10} rows={10} value={formData.desc}
              onChange={handleChange}/>
 
-            <button className='form__button w-full bg-indigo-600 w-100 p-4 uppercase mt-5 text-white ' type="submit">SUBMIT</button>
+            <button className='form__button w-full bg-indigo-600 w-100 p-4 uppercase mt-5 text-white ' type="submit">
+                {patient.id ? 'Edit Patient' : 'Add Patient'}
+            </button>
         </form>
     </div>
   )
